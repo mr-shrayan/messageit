@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity
     private TabLayout myTabLayout;
     private TabsAccessorAdapter myTabsAccessorAdapter;
 
-    private FirebaseUser curretUser;
+    private FirebaseUser currentUser;
 
 
     @Override
@@ -44,10 +44,11 @@ public class MainActivity extends AppCompatActivity
 
 
     @Override
-    protected void onStart() {
+    protected void onStart()
+    {
         super.onStart();
 
-        if (curretUser==null)
+        if (currentUser==null)
         {
             SendUserToLoginActivity();
         }
