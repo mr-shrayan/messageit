@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity
     private void VerifyUserExistance()
     {
         String currentUserID = mAuth.getCurrentUser().getUid();
-        RootRef.child(currentUserID).addValueEventListener(new ValueEventListener() {
+        RootRef.child("Users").child(currentUserID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot)
             {
