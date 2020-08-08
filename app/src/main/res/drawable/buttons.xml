@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid
-        android:color="#66F9B0"
-        >
-    </solid>
-    <corners
-        android:radius="25dp">
-    </corners>
+    <item android:state_pressed="true">
+
+        <shape>
+            <stroke android:color="@color/login_form_details" android:width="2dp"/>
+            <corners android:radius="2dp"/>
+        </shape>
+
+    </item>
+
+    <item>
+
+        <shape>
+            <stroke android:color="@color/login_form_details_light" android:width="2dp"/>
+            <corners android:radius="2dp"/>
+        </shape>
+
+    </item>
 
 
-</shape>
+
+</selector>

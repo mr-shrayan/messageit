@@ -14,18 +14,21 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
-            
+
+
             <ImageView
 
                 android:id="@+id/login_image"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:src="@drawable/login_photo"
+                android:layout_width="229dp"
+                android:layout_height="106dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:scaleType="fitCenter"/>
-
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="90dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="90dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/mylogo" />
 
             <EditText
                 android:id="@+id/login_email"
@@ -34,11 +37,12 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/login_image"
                 android:hint="Enter email.."
+                android:textColorHint="@color/login_form_details"
                 android:inputType="textEmailAddress"
                 android:background="@drawable/inputs"
-                android:padding="4dp"
+                android:padding="7dp"
                 android:drawableStart="@drawable/email"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp"/>
 
@@ -49,11 +53,12 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/login_email"
                 android:hint="Enter password.."
+                android:textColorHint="@color/login_form_details"
                 android:inputType="textPassword"
                 android:background="@drawable/inputs"
                 android:padding="4dp"
                 android:drawableStart="@drawable/password"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginRight="17dp"/>
 
@@ -62,30 +67,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/login_password"
-                android:text="Forget Password ? "
-                android:layout_marginTop="2dp"
+                android:layout_below="@+id/login_button"
+                android:text="Dont Remember Password? "
+                android:layout_marginTop="16dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
-                android:textAlignment="textEnd"
+                android:textAlignment="center"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/login_form_details"/>
 
 
             <Button
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/forget_password_link"
+                android:layout_below="@+id/login_password"
                 android:padding="4dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="19dp"
                 android:layout_marginRight="19dp"
-                android:text="Login"
+                android:text="Login Now"
                 android:textAllCaps="false"
-                android:textSize="24sp"
-                android:textColor="@android:color/background_light"
+                android:textSize="18sp"
+                android:textColor="@color/login_form_details_light"
                 android:background="@drawable/buttons"/>
 
             <TextView
@@ -93,15 +98,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/login_button"
-                android:text="Need new Account "
-                android:layout_marginTop="2dp"
+                android:layout_below="@+id/forget_password_link"
+                android:text="Sign up "
+                android:layout_marginTop="20dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:textAlignment="center"
                 android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"/>
+                android:textColor="@color/login_form_details"/>
 
             <TextView
                 android:id="@+id/login_using"
@@ -110,7 +115,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/need_new_account_link"
                 android:text="Or Login using your  "
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="23dp"
                 android:textAlignment="center"
@@ -129,13 +134,13 @@
                 android:text="Phone"
                 android:textAllCaps="false"
                 android:textSize="19sp"
-                android:textColor="@android:color/background_light"
+                android:textColor="@color/login_form_details_light"
                 android:background="@drawable/buttons"
-                android:drawableStart="@drawable/phone"/>
+                />
 
 
 
-            
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
