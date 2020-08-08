@@ -19,7 +19,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="90dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/mylogo"/>
+        android:src="@drawable/login_logo"/>
 
 
     <EditText
