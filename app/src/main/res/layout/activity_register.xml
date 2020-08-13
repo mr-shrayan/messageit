@@ -29,7 +29,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/register_image"
         android:hint="Enter email"
-        android:textColorHint="@color/login_form_details"
+        android:textColorHint="@color/login_form_details_light"
         android:inputType="textEmailAddress"
         android:background="@drawable/inputs"
         android:padding="7dp"
@@ -45,7 +45,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/register_email"
         android:hint="Enter password"
-        android:textColorHint="@color/login_form_details"
+        android:textColorHint="@color/login_form_details_light"
         android:inputType="textPassword"
         android:background="@drawable/inputs"
         android:padding="4dp"
@@ -67,7 +67,7 @@
         android:text="Register Now"
         android:textAllCaps="false"
         android:textSize="18sp"
-        android:textColor="@color/login_form_details_light"
+        android:textColor="@color/login_form_details"
         android:background="@drawable/buttons"/>
 
     <TextView
