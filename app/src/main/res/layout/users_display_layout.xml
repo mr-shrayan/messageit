@@ -36,19 +36,18 @@
                 android:layout_height="18dp"
                 android:layout_marginTop="5dp"
                 android:src="@drawable/online"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/user_status"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="19dp"
+            android:layout_height="42dp"
             android:layout_marginHorizontal="15dp"
+            android:layout_marginStart="19dp"
             android:text="User Status"
             android:textAlignment="textStart"
-            android:textSize="16sp"
-            />
+            android:textSize="16sp" />
 
     </LinearLayout>
 
