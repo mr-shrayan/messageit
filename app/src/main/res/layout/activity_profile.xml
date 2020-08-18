@@ -1,9 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_new"
     tools:context=".ProfileActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/visit_user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="200dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textColor="@color/login_form_details"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/visit_profile_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User Profile Status"
+        android:layout_marginLeft="15dp"
+        android:layout_below="@+id/visit_user_name"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/login_form_details"
+        >
+    </TextView>
+
+    <Button
+        android:id="@+id/send_message_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/visit_profile_status"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginRight="65dp"
+        android:text="SEND MESSAGE"
+        android:textAlignment="center"
+        android:textColor="@color/login_form_details"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:background="@drawable/buttons"
+        >
+    </Button>
+
+</RelativeLayout>
