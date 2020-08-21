@@ -98,16 +98,12 @@ public class RequestsFragment extends Fragment
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot snapshot)
                                             {
-                                                if (snapshot.hasChild("name"))
-                                                {
                                                     final String requestUserName = snapshot.child("name").getValue().toString();
                                                     final String requestUserStatus = snapshot.child("status").getValue().toString();
 
                                                     holder.userName.setText(requestUserName);
                                                     holder.userStatus.setText(requestUserStatus);
 
-
-                                                }
                                             }
 
                                             @Override
