@@ -3,6 +3,7 @@ package com.example.messageit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -39,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity
     private DatabaseReference RootRef;
 
     private ProgressDialog loadingBar;
+    private Toolbar SettingsToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -79,6 +81,12 @@ public class SettingsActivity extends AppCompatActivity
 
         loadingBar = new ProgressDialog(this);
 
+        SettingsToolbar = (Toolbar) findViewById(R.id.settings_toolbar);
+        setSupportActionBar(SettingsToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setTitle("Account Settings");
+
     }
 
 
@@ -97,11 +105,11 @@ public class SettingsActivity extends AppCompatActivity
         }
         else
         {
-            HashMap<String, String> profileMap = new HashMap<>();
+            HashMap<String, Object> profileMap = new HashMap<>();
                 profileMap.put("uid", currentUserID);
                 profileMap.put("name", setUserName);
                 profileMap.put("status", setStatus);
-                RootRef.child("Users").child(currentUserID).setValue(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                RootRef.child("Users").child(currentUserID).updateChildren(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task)
                     {
