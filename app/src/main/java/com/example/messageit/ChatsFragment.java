@@ -1,5 +1,6 @@
 package com.example.messageit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -72,12 +73,26 @@ public class ChatsFragment extends Fragment
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot)
                             {
-                                final String retName = snapshot.child("name").getValue().toString();
-                                final String retStatus = snapshot.child("status").getValue().toString();
+                                if (snapshot.exists())
+                                {
+                                    final String retName = snapshot.child("name").getValue().toString();
+                                    final String retStatus = snapshot.child("status").getValue().toString();
 
 
-                                holder.userName.setText(retName);
-                                holder.userStatus.setText("Last Seen: " + "\n" + "Date: " + " Time");
+                                    holder.userName.setText(retName);
+                                    holder.userStatus.setText("Last Seen: " + "\n" + "Date: " + " Time");
+
+                                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view)
+                                        {
+                                            Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+                                            chatIntent.putExtra("visit_user_id", usersIDs);
+                                            chatIntent.putExtra("visit_user_name", retName);
+                                            startActivity(chatIntent);
+                                        }
+                                    });
+                                }
                             }
 
                             @Override
