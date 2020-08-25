@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
 
 public class ChatActivity extends AppCompatActivity
@@ -41,6 +42,7 @@ public class ChatActivity extends AppCompatActivity
     {
         ChatToolBar = (Toolbar) findViewById(R.id.chat_toolbar);
         setSupportActionBar(ChatToolBar);
+        getSupportActionBar().setTitle(null);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
