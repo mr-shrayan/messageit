@@ -1,11 +1,13 @@
 package com.example.messageit;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.renderscript.ScriptGroup;
+import android.sax.RootElement;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +18,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity
 {
@@ -26,6 +35,7 @@ public class ChatActivity extends AppCompatActivity
 
     private Toolbar ChatToolBar;
     private FirebaseAuth mAuth;
+    private DatabaseReference RootRef;
 
     private ImageButton SendMessageButton;
     private EditText MessageInputText;
@@ -42,6 +52,7 @@ public class ChatActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
         messageSenderID = mAuth.getCurrentUser().getUid();
+        RootRef = FirebaseDatabase.getInstance().getReference();
 
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
@@ -95,6 +106,36 @@ public class ChatActivity extends AppCompatActivity
             String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
             String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
+
+            DatabaseReference userMessageKeyRef = RootRef.child("Messages")
+                    .child(messageSenderID).child(messageReceiverID).push();
+            String messagePushID = userMessageKeyRef.getKey();
+
+            Map messageTextBody = new HashMap();
+            messageTextBody.put("message", MessageText);
+            messageTextBody.put("type", "text");
+            messageTextBody.put("from", messageSenderID);
+
+            Map messgaeBodyDetails = new HashMap();
+            messgaeBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+            messgaeBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
+
+            RootRef.updateChildren(messgaeBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task)
+                {
+                    if(task.isSuccessful())
+                    {
+                        Toast.makeText(ChatActivity.this, "Message Sent!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(ChatActivity.this, "Message Not Sent!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    MessageInputText.setText("");
+                }
+            });
         }
     }
 }
