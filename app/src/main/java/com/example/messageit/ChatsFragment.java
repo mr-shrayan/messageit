@@ -80,7 +80,6 @@ public class ChatsFragment extends Fragment
 
 
                                     holder.userName.setText(retName);
-                                    holder.userStatus.setText("Last Seen: " + "\n" + "Date: " + " Time");
 
                                     holder.itemView.setOnClickListener(new View.OnClickListener() {
                                         @Override
