@@ -1,11 +1,13 @@
 package com.example.messageit;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
 import android.renderscript.ScriptGroup;
 import android.sax.RootElement;
 import android.text.TextUtils;
@@ -23,6 +25,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -107,6 +112,47 @@ public class ChatActivity extends AppCompatActivity
         userMessagesList.setAdapter(messageAdapter);
 
     }
+
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        RootRef.child("Messages").child(messageSenderID).child(messageReceiverID)
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName)
+                    {
+                        Messages messages = snapshot.getValue(Messages.class);
+
+                        messagesList.add(messages);
+                        messageAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+    }
+
 
 
     private void SendMessage()

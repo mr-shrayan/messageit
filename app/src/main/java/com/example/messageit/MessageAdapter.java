@@ -108,7 +108,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 holder.receiverMessageText.setVisibility(View.VISIBLE);
 
                 holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
-                holder.senderMessageText.setText(messages.getMessage());
+                holder.receiverMessageText.setText(messages.getMessage());
             }
         }
 
