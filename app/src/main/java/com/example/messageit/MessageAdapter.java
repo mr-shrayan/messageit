@@ -10,7 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -71,6 +75,42 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
         String fromUserID = messages.getFrom();
         String fromMessageType = messages.getType();
+
+        usersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(fromUserID);
+
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot)
+            {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error)
+            {
+
+            }
+        });
+
+        if (fromMessageType.equals("text"))
+        {
+            holder.receiverMessageText.setVisibility(View.INVISIBLE);
+
+            if (fromUserID.equals(messageSenderId))
+            {
+                holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
+                holder.senderMessageText.setText(messages.getMessage());
+            }
+            else
+            {
+                holder.senderMessageText.setVisibility(View.INVISIBLE);
+
+                holder.receiverMessageText.setVisibility(View.VISIBLE);
+
+                holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
+                holder.senderMessageText.setText(messages.getMessage());
+            }
+        }
 
     }
 
