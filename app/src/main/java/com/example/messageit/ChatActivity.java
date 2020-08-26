@@ -127,7 +127,11 @@ public class ChatActivity extends AppCompatActivity
                         Messages messages = snapshot.getValue(Messages.class);
 
                         messagesList.add(messages);
+
                         messageAdapter.notifyDataSetChanged();
+
+                        userMessagesList.smoothScrollToPosition(userMessagesList.getAdapter().getItemCount());
+
                     }
 
                     @Override
