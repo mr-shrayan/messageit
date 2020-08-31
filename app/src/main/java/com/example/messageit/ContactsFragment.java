@@ -11,6 +11,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -82,11 +83,42 @@ public class ContactsFragment extends Fragment
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot)
                     {
-                            String profileName = snapshot.child("name").getValue().toString();
-                            String profileStatus = snapshot.child("status").getValue().toString();
+                           if (snapshot.exists())
+                           {
 
-                            holder.userName.setText(profileName);
-                            holder.userStatus.setText(profileStatus);
+
+                               if (snapshot.child("userState").hasChild("state"))
+                               {
+                                   String state = snapshot.child("userState").child("state").getValue().toString();
+                                   String date = snapshot.child("userState").child("date").getValue().toString();
+                                   String time = snapshot.child("userState").child("time").getValue().toString();
+
+                                   if (state.equals("online"))
+                                   {
+                                       holder.onlineIcon.setVisibility(View.VISIBLE);
+                                   }
+                                   else if (state.equals("offline"))
+                                   {
+                                       holder.onlineIcon.setVisibility(View.INVISIBLE);
+                                   }
+
+                               }
+                               else
+                               {
+                                   holder.onlineIcon.setVisibility(View.INVISIBLE);
+                               }
+
+
+
+
+
+
+                               String profileName = snapshot.child("name").getValue().toString();
+                               String profileStatus = snapshot.child("status").getValue().toString();
+
+                               holder.userName.setText(profileName);
+                               holder.userStatus.setText(profileStatus);
+                           }
 
                     }
 
@@ -116,9 +148,9 @@ public class ContactsFragment extends Fragment
 
     public static class ContactsViewHolder extends RecyclerView.ViewHolder
     {
-
-
         TextView userName, userStatus;
+
+        ImageView onlineIcon;
 
         public ContactsViewHolder(@NonNull View itemView)
         {
@@ -126,6 +158,7 @@ public class ContactsFragment extends Fragment
 
             userName = itemView.findViewById(R.id.user_profile_name);
             userStatus = itemView.findViewById(R.id.user_status);
+            onlineIcon = (ImageView) itemView.findViewById(R.id.user_online_status);
         }
     }
 }
