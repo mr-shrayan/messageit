@@ -1,9 +1,11 @@
 package com.example.messageit;
 
+import android.content.ClipData;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     {
 
         public TextView senderMessageText, receiverMessageText;
+        public ImageView messageSenderPicture, messageReceiverPicture;
 
 
 
@@ -45,6 +48,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
             senderMessageText = (TextView) itemView.findViewById(R.id.sender_message_text);
             receiverMessageText = (TextView) itemView.findViewById(R.id.receiver_message_text);
+            messageReceiverPicture = itemView.findViewById(R.id.message_receiver_image_view);
+            messageSenderPicture = itemView.findViewById(R.id.message_sender_image_view);
 
         }
     }
@@ -92,10 +97,15 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             }
         });
 
+
+
+        holder.receiverMessageText.setVisibility(View.INVISIBLE);
+        holder.senderMessageText.setVisibility(View.INVISIBLE);
+        holder.messageSenderPicture.setVisibility(View.INVISIBLE);
+        holder.messageReceiverPicture.setVisibility(View.INVISIBLE);
+
         if (fromMessageType.equals("text"))
         {
-            holder.receiverMessageText.setVisibility(View.INVISIBLE);
-            holder.senderMessageText.setVisibility(View.INVISIBLE);
 
             if (fromUserID.equals(messageSenderId))
             {
