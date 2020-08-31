@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity
+
 {
 
     private String messageReceiverID, messageReceiverName, messageSenderID;
