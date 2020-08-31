@@ -21,7 +21,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.io.InvalidObjectException;
-import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity
 {
@@ -30,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity
     private TextView userProfileName, userProfileStatus;
     private Button sendMessageRequestButton, DeclineMessageRequestButton;
 
-    private DatabaseReference UserRef, ChatRequestRef, ContactsRef, NotificationRef;
+    private DatabaseReference UserRef, ChatRequestRef, ContactsRef;
     private FirebaseAuth mAuth;
 
     @Override
@@ -44,7 +43,6 @@ public class ProfileActivity extends AppCompatActivity
         UserRef = FirebaseDatabase.getInstance().getReference().child("Users");
         ChatRequestRef = FirebaseDatabase.getInstance().getReference().child("Chat Requests");
         ContactsRef = FirebaseDatabase.getInstance().getReference().child("Contacts");
-        NotificationRef = FirebaseDatabase.getInstance().getReference().child("Notifications");
 
 
         receiverUserId = getIntent().getExtras().get("visit_user_id").toString();
@@ -324,27 +322,9 @@ public class ProfileActivity extends AppCompatActivity
                                         {
                                             if (task.isSuccessful())
                                             {
-
-                                                HashMap<String, String> chatNotificationMap = new HashMap<>();
-                                                chatNotificationMap.put("from", senderUserId);
-                                                chatNotificationMap.put("type", "request");
-
-                                                NotificationRef.child(receiverUserId).push()
-                                                        .setValue(chatNotificationMap)
-                                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<Void> task)
-                                                            {
-                                                                if (task.isSuccessful())
-                                                                {
-                                                                    sendMessageRequestButton.setEnabled(true);
-                                                                    Current_State = "request_sent";
-                                                                    sendMessageRequestButton.setText("Cancel Request");
-                                                                }
-                                                            }
-                                                        });
-
-
+                                                sendMessageRequestButton.setEnabled(true);
+                                                Current_State = "request_sent";
+                                                sendMessageRequestButton.setText("Cancel Request");
                                             }
                                         }
                                     });
