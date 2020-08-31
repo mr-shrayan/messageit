@@ -33,6 +33,7 @@ public class ChatsFragment extends Fragment
 
     public ChatsFragment()
     {
+
     }
 
     @Override
