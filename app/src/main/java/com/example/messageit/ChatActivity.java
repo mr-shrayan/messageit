@@ -138,7 +138,7 @@ public class ChatActivity extends AppCompatActivity
 
     private void DisplayLastSeen()
     {
-        RootRef.child("Users").child(messageSenderID)
+        RootRef.child("Users").child(messageReceiverID)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot)
@@ -235,12 +235,17 @@ public class ChatActivity extends AppCompatActivity
 
             DatabaseReference userMessageKeyRef = RootRef.child("Messages")
                     .child(messageSenderID).child(messageReceiverID).push();
+
             String messagePushID = userMessageKeyRef.getKey();
 
             Map messageTextBody = new HashMap();
             messageTextBody.put("message", MessageText);
             messageTextBody.put("type", "text");
             messageTextBody.put("from", messageSenderID);
+            messageTextBody.put("to", messageReceiverID);
+            messageTextBody.put("messageID", messagePushID);
+            messageTextBody.put("time", saveCurrentTime);
+            messageTextBody.put("date", saveCurrentDate);
 
             Map messgaeBodyDetails = new HashMap();
             messgaeBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);

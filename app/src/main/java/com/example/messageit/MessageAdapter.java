@@ -111,14 +111,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             {
                 holder.senderMessageText.setVisibility(View.VISIBLE);
                 holder.senderMessageText.setBackgroundResource(R.drawable.sender_messages_layout);
-                holder.senderMessageText.setText(messages.getMessage());
+                holder.senderMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
             }
             else
             {
                 holder.receiverMessageText.setVisibility(View.VISIBLE);
 
                 holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
-                holder.receiverMessageText.setText(messages.getMessage());
+                holder.receiverMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
             }
         }
 
