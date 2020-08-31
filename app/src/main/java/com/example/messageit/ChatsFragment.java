@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ChatsFragment extends Fragment
+
 {
     private View PrivateChatsView;
     private RecyclerView chatsList;
