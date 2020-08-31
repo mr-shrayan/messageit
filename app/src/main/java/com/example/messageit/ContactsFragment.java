@@ -82,15 +82,12 @@ public class ContactsFragment extends Fragment
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot)
                     {
-                        if (snapshot.hasChild("name"))
-                        {
                             String profileName = snapshot.child("name").getValue().toString();
                             String profileStatus = snapshot.child("status").getValue().toString();
 
                             holder.userName.setText(profileName);
                             holder.userStatus.setText(profileStatus);
 
-                        }
                     }
 
                     @Override
