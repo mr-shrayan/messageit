@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                UpdateSettigs();
+                UpdateSettings();
             }
         });
 
@@ -90,7 +90,7 @@ public class SettingsActivity extends AppCompatActivity
     }
 
 
-    private void UpdateSettigs()
+    private void UpdateSettings()
     {
         String setUserName = userName.getText().toString();
         String setStatus = userStatus.getText().toString();

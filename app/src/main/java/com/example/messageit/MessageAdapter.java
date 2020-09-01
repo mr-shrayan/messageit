@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -119,6 +120,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
                 holder.receiverMessageText.setBackgroundResource(R.drawable.receiver_messages_layout);
                 holder.receiverMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
+            }
+        }
+        else if (fromMessageType.equals("image"))
+        {
+            if (fromUserID.equals(messageSenderId))
+            {
+                holder.messageSenderPicture.setVisibility(View.VISIBLE);
+
+                Picasso.get().load(messages.getMessage()).into(holder.messageSenderPicture);
+            }
+            else
+            {
+                holder.messageReceiverPicture.setVisibility(View.VISIBLE);
+
+                Picasso.get().load(messages.getMessage()).into(holder.messageReceiverPicture);
             }
         }
 
