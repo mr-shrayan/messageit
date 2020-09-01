@@ -3,9 +3,12 @@ package com.example.messageit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
 import android.renderscript.ScriptGroup;
@@ -59,6 +62,7 @@ public class ChatActivity extends AppCompatActivity
     private RecyclerView userMessagesList;
 
     private String saveCurrentTime, saveCurrentDate;
+    private String checker ="";
 
 
 
@@ -93,6 +97,45 @@ public class ChatActivity extends AppCompatActivity
 
 
         DisplayLastSeen();
+
+
+        SendFilesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                CharSequence options[] = new CharSequence[]
+                        {
+                                "IMAGES",
+                                "PDF",
+                                "DOCUMENTS"
+                        };
+                AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
+                builder.setTitle("Select Type");
+
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        if (i == 0)
+                        {
+                            checker = "image";
+                            Intent intent  = new Intent();
+                            intent.setAction(intent.ACTION_GET_CONTENT);
+                            intent.setType("image/*");
+                            startActivityForResult(intent.createChooser(intent, "Select Image"), 438);
+                        }
+                        if (i == 1)
+                        {
+                            checker = "pdf";
+                        }
+                        if (i == 2)
+                        {
+                            checker = "docx";
+                        }
+                    }
+                });
+            }
+        });
 
     }
 
