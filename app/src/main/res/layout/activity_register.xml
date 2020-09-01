@@ -10,8 +10,8 @@
     <ImageView
 
         android:id="@+id/register_image"
-        android:layout_width="229dp"
-        android:layout_height="106dp"
+        android:layout_width="308dp"
+        android:layout_height="164dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
@@ -19,7 +19,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="90dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/login_logo"/>
+        android:src="@drawable/messagelogo2" />
 
 
     <EditText
