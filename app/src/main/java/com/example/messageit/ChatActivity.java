@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -38,8 +39,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -240,12 +243,64 @@ public class ChatActivity extends AppCompatActivity
             loadingBar.show();
 
 
-
-
             fileUri = data.getData();
 
             if (!checker.equals("image"))
             {
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("Document Files");
+
+                final String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
+                final String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
+
+
+                DatabaseReference userMessageKeyRef = RootRef.child("Messages")
+                        .child(messageSenderID).child(messageReceiverID).push();
+
+                final String messagePushID = userMessageKeyRef.getKey();
+
+                final StorageReference filePath = storageReference.child(messagePushID + "." + checker);
+
+                filePath.putFile(fileUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                    {
+                        if(task.isSuccessful())
+                        {
+                            Map messageTextBody = new HashMap();
+                            messageTextBody.put("message", task.getResult().getMetadata().getReference().getDownloadUrl().toString());
+                            messageTextBody.put("name", fileUri.getLastPathSegment());
+                            messageTextBody.put("type", checker);
+                            messageTextBody.put("from", messageSenderID);
+                            messageTextBody.put("to", messageReceiverID);
+                            messageTextBody.put("messageID", messagePushID);
+                            messageTextBody.put("time", saveCurrentTime);
+                            messageTextBody.put("date", saveCurrentDate);
+
+                            Map messageBodyDetails = new HashMap();
+                            messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+                            messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
+
+                            RootRef.updateChildren(messageBodyDetails);
+                            loadingBar.dismiss();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e)
+                    {
+                        loadingBar.dismiss();
+                        Toast.makeText(ChatActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot)
+                    {
+                        double p =(100.0*taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        loadingBar.setMessage((int) p + " % Uploading");
+                    }
+                });
+
 
             }
             else if (checker.equals("image"))
@@ -294,11 +349,11 @@ public class ChatActivity extends AppCompatActivity
                             messageTextBody.put("time", saveCurrentTime);
                             messageTextBody.put("date", saveCurrentDate);
 
-                            Map messgaeBodyDetails = new HashMap();
-                            messgaeBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
-                            messgaeBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
+                            Map messageBodyDetails = new HashMap();
+                            messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
+                            messageBodyDetails.put(messageReceiverRef + "/" + messagePushID, messageTextBody);
 
-                            RootRef.updateChildren(messgaeBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+                            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                                 @Override
                                 public void onComplete(@NonNull Task task)
                                 {
