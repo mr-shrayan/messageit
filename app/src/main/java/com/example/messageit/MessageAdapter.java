@@ -1,6 +1,8 @@
 package com.example.messageit;
 
 import android.content.ClipData;
+import android.content.Intent;
+import android.net.Uri;
 import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +76,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
 
     @Override
-    public void onBindViewHolder(@NonNull MessageViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull final MessageViewHolder holder, final int position)
     {
         String messageSenderId = mAuth.getCurrentUser().getUid();
         Messages messages = userMessagesList.get(position);
@@ -143,6 +145,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             {
                 holder.messageSenderPicture.setVisibility(View.VISIBLE);
                 holder.messageSenderPicture.setBackgroundResource(R.drawable.file);
+
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view)
+                    {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                        holder.itemView.getContext().startActivity(intent);
+                    }
+                });
             }
             else
             {
