@@ -119,7 +119,8 @@ public class ChatActivity extends AppCompatActivity
                 builder.setItems(options, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (i == 0) {
+                        if (i == 0)
+                        {
                             checker = "image";
 
                             Intent intent = new Intent();
@@ -127,11 +128,24 @@ public class ChatActivity extends AppCompatActivity
                             intent.setType("image/*");
                             startActivityForResult(intent.createChooser(intent, "Select Image"), 438);
                         }
-                        if (i == 1) {
+                        if (i == 1)
+                        {
                             checker = "pdf";
+
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            intent.setType("application/pdf");
+                            startActivityForResult(intent.createChooser(intent, "Select PDF File"), 438);
+
                         }
-                        if (i == 2) {
+                        if (i == 2)
+                        {
                             checker = "docx";
+
+                            Intent intent = new Intent();
+                            intent.setAction(Intent.ACTION_GET_CONTENT);
+                            intent.setType("application/msword");
+                            startActivityForResult(intent.createChooser(intent, "Select MS WORD File"), 438);
                         }
                     }
                 });
