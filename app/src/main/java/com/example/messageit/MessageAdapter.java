@@ -1,6 +1,8 @@
 package com.example.messageit;
 
+import android.app.AlertDialog;
 import android.content.ClipData;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.ContactsContract;
@@ -149,15 +151,6 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                         .load("https://firebasestorage.googleapis.com/v0/b/messageit-86a53.appspot.com/o/Image%20Files%2Ffile.png?alt=media&token=106ceb69-3aca-4e74-8b03-a7c7400d3a6d")
                         .into(holder.messageSenderPicture);
 
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
-                        holder.itemView.getContext().startActivity(intent);
-                    }
-                });
             }
             else
             {
@@ -166,16 +159,109 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 Picasso.get()
                         .load("https://firebasestorage.googleapis.com/v0/b/messageit-86a53.appspot.com/o/Image%20Files%2Ffile.png?alt=media&token=106ceb69-3aca-4e74-8b03-a7c7400d3a6d")
                         .into(holder.messageReceiverPicture);
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view)
-                    {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
-                        holder.itemView.getContext().startActivity(intent);
-                    }
-                });
             }
+        }
+
+        if (fromUserID.equals(messageSenderId))
+        {
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view)
+                {
+                    if (userMessagesList.get(position).getType().equals("pdf") || userMessagesList.get(position).getType().equals("docx"))
+                    {
+                        CharSequence options[] = new CharSequence[]
+                                {
+                                        "Delete for Me",
+                                        "Delete for Everyone",
+                                        "Download and View Document",
+                                        "Cancel"
+                                };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+                        builder.setTitle("Delete Message?");
+
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                if (position == 0)
+                                {
+
+                                }
+                                else if (position == 1)
+                                {
+
+                                }
+                                else if (position == 2)
+                                {
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                                    holder.itemView.getContext().startActivity(intent);
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                    else if (userMessagesList.get(position).getType().equals("text"))
+                    {
+                        CharSequence options[] = new CharSequence[]
+                                {
+                                        "Delete for Me",
+                                        "Delete for Everyone",
+                                        "Cancel"
+                                };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+                        builder.setTitle("Delete Message?");
+
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                if (position == 0)
+                                {
+
+                                }
+                                else if (position == 1)
+                                {
+
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                    if (userMessagesList.get(position).getType().equals("image"))
+                    {
+                        CharSequence options[] = new CharSequence[]
+                                {
+                                        "Delete for Me",
+                                        "Delete for Everyone",
+                                        "View Image",
+                                        "Cancel"
+                                };
+                        AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
+                        builder.setTitle("Delete Message?");
+
+                        builder.setItems(options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i)
+                            {
+                                if (position == 0)
+                                {
+
+                                }
+                                else if (position == 1)
+                                {
+
+                                }
+                                else if (position == 2)
+                                {
+
+                                }
+                            }
+                        });
+                        builder.show();
+                    }
+                }
+            });
         }
 
     }
