@@ -187,15 +187,21 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                if (position == 0)
+                                if (i == 0)
                                 {
+                                    deleteSentMessage(position, holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 1)
+                                else if (i == 1)
                                 {
+                                    deleteMessageForEveryone(position, holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 2)
+                                else if (i == 2)
                                 {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
                                     holder.itemView.getContext().startActivity(intent);
@@ -219,19 +225,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                if (position == 0)
+                                if (i == 0)
                                 {
+                                    deleteSentMessage(position, holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 1)
+                                else if (i == 1)
                                 {
+                                    deleteMessageForEveryone(position, holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
                             }
                         });
                         builder.show();
                     }
-                    if (userMessagesList.get(position).getType().equals("image"))
+                    else if (userMessagesList.get(position).getType().equals("image"))
                     {
                         CharSequence options[] = new CharSequence[]
                                 {
@@ -247,17 +259,25 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                if (position == 0)
+                                if (i == 0)
                                 {
+                                    deleteSentMessage(position, holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 1)
+                                else if (i == 1)
                                 {
+                                    deleteMessageForEveryone(position, holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 2)
+                                else if (i == 2)
                                 {
-
+                                    Intent intent = new Intent(holder.itemView.getContext(), ImageViewerActivity.class);
+                                    intent.putExtra("url", userMessagesList.get(position).getMessage());
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
                             }
                         });
@@ -287,11 +307,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                if (position == 0)
+                                if (i == 0)
                                 {
+                                    deleteReceivedMessage(position,holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 1)
+                                else if (i == 1)
                                 {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
                                     holder.itemView.getContext().startActivity(intent);
@@ -314,15 +337,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                if (position == 0)
+                                if (i == 0)
                                 {
+                                    deleteReceivedMessage(position,holder);
 
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
                             }
                         });
                         builder.show();
                     }
-                    if (userMessagesList.get(position).getType().equals("image"))
+                    else if (userMessagesList.get(position).getType().equals("image"))
                     {
                         CharSequence options[] = new CharSequence[]
                                 {
@@ -337,13 +363,17 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i)
                             {
-                                if (position == 0)
+                                if (i == 0)
                                 {
-
+                                    deleteReceivedMessage(position,holder);
+                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (position == 1)
+                                else if (i == 1)
                                 {
-
+                                    Intent intent = new Intent(holder.itemView.getContext(), ImageViewerActivity.class);
+                                    intent.putExtra("url", userMessagesList.get(position).getMessage());
+                                    holder.itemView.getContext().startActivity(intent);
                                 }
                             }
                         });
