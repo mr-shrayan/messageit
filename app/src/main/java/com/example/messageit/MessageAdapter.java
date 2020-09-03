@@ -124,6 +124,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 holder.receiverMessageText.setText(messages.getMessage() + "\n \n" + messages.getTime() + " - " + messages.getDate());
             }
         }
+
         else if (fromMessageType.equals("image"))
         {
             if (fromUserID.equals(messageSenderId))
@@ -139,12 +140,14 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
                 Picasso.get().load(messages.getMessage()).into(holder.messageReceiverPicture);
             }
         }
-        else
+        else if (fromMessageType.equals("pdf") || fromMessageType.equals("docx ") )
         {
             if (fromUserID.equals(messageSenderId))
             {
                 holder.messageSenderPicture.setVisibility(View.VISIBLE);
-                holder.messageSenderPicture.setBackgroundResource(R.drawable.file);
+                Picasso.get()
+                        .load("https://firebasestorage.googleapis.com/v0/b/messageit-86a53.appspot.com/o/Image%20Files%2Ffile.png?alt=media&token=106ceb69-3aca-4e74-8b03-a7c7400d3a6d")
+                        .into(holder.messageSenderPicture);
 
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +163,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             {
                 holder.messageReceiverPicture.setVisibility(View.VISIBLE);
 
-                holder.messageReceiverPicture.setBackgroundResource(R.drawable.file);
+                Picasso.get()
+                        .load("https://firebasestorage.googleapis.com/v0/b/messageit-86a53.appspot.com/o/Image%20Files%2Ffile.png?alt=media&token=106ceb69-3aca-4e74-8b03-a7c7400d3a6d")
+                        .into(holder.messageReceiverPicture);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
